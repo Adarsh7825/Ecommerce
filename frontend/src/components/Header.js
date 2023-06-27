@@ -55,8 +55,8 @@ const Header = () => {
                 <NavLink to="/" style={styles.navOption} activeClassName="active" exact>
                     <span className="greeting">{getGreeting()}</span>
                 </NavLink>
-                <NavLink to="/" style={styles.navOption} activeClassName="active" exact>
-                    Home
+                <NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : "user"}`} style={styles.navOption} activeClassName="active" exact>
+                    Dashboard
                 </NavLink>
                 {!auth.user ? (
                     <>
@@ -81,7 +81,7 @@ const Header = () => {
                     Cart
                 </NavLink>
             </animated.div>
-        </header>
+        </header >
     );
 };
 

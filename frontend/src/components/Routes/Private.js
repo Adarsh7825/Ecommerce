@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Navigate } from "react-router-dom";
 import axios from "axios";
-import Spinner from "./Spinner";
-
+import Spinner from "./Spinner.js";
 
 export default function PrivateRoute({ element: Element, ...rest }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
