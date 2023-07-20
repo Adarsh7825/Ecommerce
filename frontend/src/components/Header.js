@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../context/auth.js';
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
