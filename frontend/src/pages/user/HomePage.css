@@ -1,0 +1,28 @@
+/* HomePage.css */
+
+/* Adjust photo size */
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Style the product cards */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Center product card text */
+.card-body {
+    text-align: center;
+}
+
+/* Style the "More Details" and "ADD TO CART" buttons */
+.card-body button {
+    margin-top: 10px;
+}
+
+/* Add space between the cards */
+.card+.card {
+    margin-top: 20px;
+}

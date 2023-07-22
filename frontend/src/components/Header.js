@@ -40,6 +40,8 @@ const Header = () => {
         }
     };
 
+    const isAdmin = auth?.user?.role === 1; // Check if the user is an admin
+
     return (
         <header style={styles.header}>
             <animated.div style={{ ...styles.logoContainer, ...logoAnimationProps }} className="animated-logo">
@@ -55,9 +57,16 @@ const Header = () => {
                 <NavLink to="/" style={styles.navOption} activeClassName="active" exact>
                     <span className="greeting">{getGreeting()}</span>
                 </NavLink>
-                <NavLink to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : "user"}`} style={styles.navOption} activeClassName="active" exact>
-                    Dashboard
-                </NavLink>
+                {isAdmin && ( // Show admin dashboard link if the user is an admin
+                    <NavLink to="/dashboard/admin" style={styles.navOption} activeClassName="active" exact>
+                        Admin Dashboard
+                    </NavLink>
+                )}
+                {!isAdmin && ( // Show user dashboard link if the user is not an admin
+                    <NavLink to="/dashboard/user" style={styles.navOption} activeClassName="active" exact>
+                        User Dashboard
+                    </NavLink>
+                )}
                 {!auth.user ? (
                     <>
                         <NavLink to="/login" style={styles.navOption} activeClassName="active">
@@ -81,7 +90,7 @@ const Header = () => {
                     Cart
                 </NavLink>
             </animated.div>
-        </header >
+        </header>
     );
 };
 
