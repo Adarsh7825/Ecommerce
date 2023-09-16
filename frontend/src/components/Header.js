@@ -2,9 +2,13 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import { useAuth } from '../context/auth.js';
+import SearchInput from './Form/SearchInput.js';
+import { useCart } from '../context/cart.js';
+import { Badge } from 'antd'
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
+    const [cart] = useCart();
 
     const handleLogout = () => {
         setAuth({
@@ -26,12 +30,6 @@ const Header = () => {
         delay: 500
     });
 
-    const searchAnimationProps = useSpring({
-        from: { opacity: 0 },
-        to: { opacity: 1 },
-        delay: 1000
-    });
-
     const getGreeting = () => {
         if (auth.user && auth.user.name) {
             return `Hello, ${auth.user.name}`;
@@ -49,10 +47,7 @@ const Header = () => {
                     🛒 SalesHive
                 </Link>
             </animated.div>
-            <animated.div style={{ ...styles.searchContainer, ...searchAnimationProps }}>
-                <input type="text" placeholder="Search" style={styles.searchInput} />
-                <button style={styles.searchButton}>Search</button>
-            </animated.div>
+            <SearchInput />
             <animated.div style={{ ...styles.navContainer, ...navAnimationProps }} className="animated-nav">
                 <NavLink to="/" style={styles.navOption} activeClassName="active" exact>
                     <span className="greeting">{getGreeting()}</span>
@@ -83,11 +78,12 @@ const Header = () => {
                         </NavLink>
                     </>
                 )}
-                <NavLink to="/orders" style={styles.navOption} activeClassName="active">
+                <NavLink to="/dashboard/user/orders" style={styles.navOption} activeClassName="active">
                     Your Orders
                 </NavLink>
                 <NavLink to="/cart" style={styles.navOption} activeClassName="active">
-                    Cart
+                    Cart <Badge count={cart?.length} showZero>
+                    </Badge>
                 </NavLink>
             </animated.div>
         </header>
@@ -105,26 +101,6 @@ const styles = {
     },
     logoContainer: {
         marginRight: '10px'
-    },
-    searchContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        marginRight: '10px'
-    },
-    searchInput: {
-        padding: '5px',
-        marginRight: '5px',
-        borderRadius: '3px',
-        border: 'none'
-    },
-    searchButton: {
-        padding: '5px 10px',
-        borderRadius: '3px',
-        border: 'none',
-        backgroundColor: '#febd69',
-        color: '#232f3e',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s ease'
     },
     navContainer: {
         display: 'flex',

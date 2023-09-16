@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./../../components/Layout";
-import AdminMenu from "../../components/AdminMenu";
+import Layout from '../../components/Layout'
+import AdminMenu from '../../components/AdminMenu'
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
@@ -26,8 +26,14 @@ const UpdateProduct = () => {
             const { data } = await axios.get(
                 `/api/v1/product/get-product/${params.slug}`
             );
-
-            setName(data.productSchema.name);
+            setName(data.product.name);
+            setId(data.product._id);
+            setDescription(data.product.description);
+            setPrice(data.product.price);
+            setPrice(data.product.price);
+            setQuantity(data.product.quantity);
+            setShipping(data.product.shipping);
+            setCategory(data.product.category._id);
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +82,7 @@ const UpdateProduct = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error("something went wrong");
+            toast.error("Something went wrong");
         }
     };
 
@@ -88,7 +94,7 @@ const UpdateProduct = () => {
             const { data } = await axios.delete(
                 `/api/v1/product/delete-product/${id}`
             );
-            toast.success("Product Deleted Succesfull");
+            toast.success("Product Deleted Succesfully");
             navigate("/dashboard/admin/products");
         } catch (error) {
             console.log(error);

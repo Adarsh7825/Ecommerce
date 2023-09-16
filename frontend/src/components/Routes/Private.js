@@ -1,39 +1,23 @@
-import { useEffect, useState } from "react";
-import { Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useAuth } from "../../context/auth";
+import { Outlet } from "react-router-dom";
 import axios from "axios";
-import Spinner from "./Spinner.js";
-
-export default function PrivateRoute({ element: Element, ...rest }) {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+import Spinner from "./Spinner";
+export default function PrivateRoute() {
+    const [ok, setOk] = useState(false);
+    const [auth, setAuth] = useAuth();
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const res = await axios.get("/api/v1/auth/user-auth");
-                if (res.data.ok) {
-                    setIsAuthenticated(true);
-                } else {
-                    setIsAuthenticated(false);
-                }
-            } catch (error) {
-                console.error(error);
-                setIsAuthenticated(false);
-            } finally {
-                setIsLoading(false);
+        const authCheck = async () => {
+            const res = await axios.get("/api/v1/auth/user-auth");
+            if (res.data.ok) {
+                setOk(true);
+            } else {
+                setOk(false);
             }
         };
+        if (auth?.token) authCheck();
+    }, [auth?.token]);
 
-        checkAuth();
-    }, []);
-
-    if (isLoading) {
-        return <Spinner />;
-    }
-
-    return isAuthenticated ? (
-        <Route {...rest} element={<Element />} />
-    ) : (
-        <Navigate to="/login" replace={true} />
-    );
+    return ok ? <Outlet /> : <Spinner />;
 }

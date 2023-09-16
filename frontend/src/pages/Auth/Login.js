@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import axios from 'axios';
@@ -12,12 +12,6 @@ const Login = () => {
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-
-    useEffect(() => {
-        if (auth.user) {
-            navigate('/dashboard');
-        }
-    }, [auth.user, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
