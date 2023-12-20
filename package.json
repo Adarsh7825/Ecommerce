@@ -8,7 +8,8 @@
     "start": "npm run server",
     "server": "nodemon server.js",
     "frontend": "npm run start --prefix ./frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "build": "npm i`"
   },
   "keywords": [],
   "author": "Adarsh Gupta",
